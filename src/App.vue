@@ -35,7 +35,7 @@
 
     <!-- loading... -->
     <div
-      v-if="taskStore.loading"
+      v-if="loading"
       class="max-w-[640px] border border-yellow-400 bg-orange-300 py-1 px-0 text-center my-8 mx-auto text-gray-700 font-semibold rounded"
     >
       Loading...
@@ -43,17 +43,26 @@
 
     <!-- task list -->
     <div class="max-w-[640px] mx-auto my-[20px]" v-if="filter === 'all'">
-      <p>You have {{ taskStore.totalCount }} tasks left to do.</p>
-      <div v-for="task in taskStore.tasks">
+      <p>You have {{ totalCount }} tasks left to do.</p>
+      <div v-for="task in tasks">
         <TaskList :task="task" />
       </div>
     </div>
 
     <div class="max-w-[640px] mx-auto my-[20px]" v-if="filter === 'favorite'">
-      <p>You have {{ taskStore.favoriteCount }} fav tasks left to do.</p>
-      <div v-for="task in taskStore.favorite">
+      <p>You have {{ favoriteCount }} fav tasks left to do.</p>
+      <div v-for="task in favorite">
         <TaskList :task="task" />
       </div>
+    </div>
+
+    <div class="max-w-[640px] mx-auto my-[20px]">
+      <button
+        @click="taskStore.$reset"
+        class="bg-red-400 px-4 py-2 rounded float-right mb-4 text-white font-normal"
+      >
+        Reset the state
+      </button>
     </div>
   </main>
 </template>
@@ -61,10 +70,15 @@
 <script setup>
 import { ref } from "vue";
 import { useTaskStore } from "@/stores/TaskStore";
+import { storeToRefs } from "pinia";
+
 import TaskList from "./components/TaskList.vue";
 import TaskForm from "./components/TaskForm.vue";
 
 const filter = ref("all");
 const taskStore = useTaskStore();
+const { favoriteCount, totalCount, favorite, tasks, loading } =
+  storeToRefs(taskStore);
+
 taskStore.getTasks();
 </script>
