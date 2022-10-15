@@ -1,0 +1,29 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Play video game",
+      "isFav": false
+    },
+    {
+      "id": 2,
+      "title": "Make cookies",
+      "isFav": false
+    },
+    {
+      "id": 3,
+      "title": "Reading book",
+      "isFav": true
+    },
+    {
+      "id": 4,
+      "title": "Learning For FE exam",
+      "isFav": false
+    },
+    {
+      "title": "Make lunch",
+      "isFav": true,
+      "id": 93
+    }
+  ]
+}
